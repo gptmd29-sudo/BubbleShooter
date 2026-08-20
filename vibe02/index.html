@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="인접한 사과 숫자를 연결해 합이 10이 되도록 만드는 퍼즐 게임">
+  <title>Apple Sum 10</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="game-shell">
+    <header class="game-header">
+      <div class="title-block">
+        <p class="kicker">A LITTLE PUZZLE BREAK</p>
+        <h1>Apple <span>Sum 10</span></h1>
+        <p class="subtitle">인접한 사과를 연결해 합을 10으로 만들어보세요!</p>
+      </div>
+      <div class="score-panel" aria-label="게임 점수 정보">
+        <div class="score-box"><span>MY SCORE</span><strong id="score">0</strong></div>
+        <div class="score-box current-box"><span>SELECTED SUM</span><strong id="selected-sum">0</strong><small id="selection-label">사과를 선택해보세요</small></div>
+      </div>
+    </header>
+
+    <section class="game-card" aria-label="사과 숫자 퍼즐">
+      <div class="game-topline"><span id="status-message" role="status" aria-live="polite">인접한 사과를 드래그하세요</span><span class="board-count"><b id="move-count">0</b> moves</span></div>
+      <div id="board" class="board" role="grid" aria-label="8행 6열 사과 게임판"></div>
+    </section>
+
+    <section class="instructions" aria-label="게임 방법">
+      <div class="instruction"><span class="instruction-number">01</span><p><strong>누르고</strong><br>사과를 선택해요</p></div>
+      <div class="instruction-arrow" aria-hidden="true">→</div>
+      <div class="instruction"><span class="instruction-number">02</span><p><strong>이어가며</strong><br>인접한 사과를 연결해요</p></div>
+      <div class="instruction-arrow" aria-hidden="true">→</div>
+      <div class="instruction"><span class="instruction-number">03</span><p><strong>합이 10이면</strong><br>사과가 사라지고 +2점!</p></div>
+      <button id="restart-button" class="restart-button" type="button"><span aria-hidden="true">↻</span> 다시 시작</button>
+    </section>
+  </main>
+  <footer>APPLE SUM 10 <span>·</span> Made for a tiny break</footer>
+</body>
+</html>
