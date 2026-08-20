@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="같은 색 버블을 3개 이상 연결해 제거하는 클래식 버블 슈터 게임">
+  <title>Classic Bubble Shooter</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="game-wrap">
+    <header class="topbar">
+      <div class="brand"><span class="brand-icon">●</span><div><p class="eyebrow">ARCADE PUZZLE</p><h1>Bubble <em>Shooter</em></h1></div></div>
+      <div class="hud">
+        <div class="hud-item"><span>SCORE</span><strong id="score">0000</strong></div>
+        <div class="hud-item"><span>ROUND</span><strong id="round">01</strong></div>
+        <div class="hud-item penalty-item"><span>DROP IN</span><div id="penalties" class="penalties" aria-label="다음 행 추가까지 남은 실패 횟수"></div></div>
+      </div>
+    </header>
+
+    <section class="game-panel" aria-label="Bubble Shooter 게임">
+      <div class="panel-topline"><p id="message" role="status" aria-live="polite">버블을 조준하고 발사하세요</p><div class="danger-label"><span class="danger-dot"></span> DANGER LINE</div></div>
+      <div class="canvas-frame"><canvas id="game-canvas" tabindex="0" aria-label="버블 슈터 게임 보드"></canvas><div class="overlay" id="overlay" hidden><p class="overlay-kicker" id="overlay-kicker">GAME OVER</p><h2 id="overlay-title">버블이 너무 내려왔어요</h2><p id="overlay-score"></p><div class="overlay-actions"><button id="primary-action" type="button">다시 시작</button><button id="save-action" class="secondary-button" type="button" hidden>점수 저장</button></div></div></div>
+    </section>
+
+    <section class="shooter-bar" aria-label="발사대와 다음 버블">
+      <div class="next-bubble"><span>NEXT</span><div id="next-preview" class="preview-bubble"></div></div>
+      <div class="shooter-instruction"><span class="guide-icon">⌁</span><span>마우스 또는 터치로<br>조준 후 발사하세요</span></div>
+      <div class="shooter-area"><div id="current-preview" class="current-bubble"></div><div class="shooter-base"></div></div>
+    </section>
+    <p class="keyboard-hint">← → 조준 &nbsp;·&nbsp; SPACE 발사 &nbsp;·&nbsp; 같은 색 3개 이상을 연결하세요</p>
+  </main>
+  <footer>CLASSIC BUBBLE SHOOTER <span>·</span> PURE HTML / CSS / JAVASCRIPT</footer>
+</body>
+</html>
