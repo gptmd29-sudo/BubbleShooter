@@ -14,14 +14,14 @@ const primaryAction = document.querySelector('#primary-action');
 const saveAction = document.querySelector('#save-action');
 
 const COLORS = ['#f25555', '#4d8dff', '#58b878', '#f5c84b', '#a77bdf'];
-const ROWS = 15;
-const COLS = 10;
+const ROWS = 12;
+const COLS = 14;
 const RADIUS = 17;
 const DIAMETER = RADIUS * 2;
 const ROW_HEIGHT = Math.sqrt(3) * RADIUS;
 const MAX_PENALTIES = 5;
 const START_ROWS = 5;
-const SHOOTER_Y = ROWS * ROW_HEIGHT + 83;
+const SHOOTER_Y = ROWS * ROW_HEIGHT + 65;
 const DANGER_Y = ROWS * ROW_HEIGHT - 17;
 
 let board = [];
@@ -47,7 +47,7 @@ function rowOffset(row) { return row % 2 ? RADIUS : 0; }
 function cellPosition(row, col) { return { x: RADIUS + col * DIAMETER + rowOffset(row), y: RADIUS + row * ROW_HEIGHT }; }
 function isInside(row, col) { return row >= 0 && row < ROWS && col >= 0 && col < COLS; }
 function neighbors(row, col) { const even = row % 2 === 0; const offsets = even ? [[-1,-1],[-1,0],[0,-1],[0,1],[1,-1],[1,0]] : [[-1,0],[-1,1],[0,-1],[0,1],[1,0],[1,1]]; return offsets.map(([rowOffsetValue, colOffsetValue]) => [row + rowOffsetValue, col + colOffsetValue]).filter(([nextRow, nextCol]) => isInside(nextRow, nextCol)); }
-function setCanvasSize() { const width = Math.min(700, Math.max(300, canvas.parentElement.clientWidth)); boardWidth = width; canvasScale = width / (COLS * DIAMETER + RADIUS * 2 + RADIUS); canvas.width = width * devicePixelRatio; canvas.height = (SHOOTER_Y + 18) * canvasScale * devicePixelRatio; canvas.style.height = `${(SHOOTER_Y + 18) * canvasScale}px`; context.setTransform(devicePixelRatio * canvasScale, 0, 0, devicePixelRatio * canvasScale, 0, 0); }
+function setCanvasSize() { const width = Math.min(820, Math.max(300, canvas.parentElement.clientWidth)); boardWidth = width; canvasScale = width / (COLS * DIAMETER + RADIUS * 2 + RADIUS); canvas.width = width * devicePixelRatio; canvas.height = (SHOOTER_Y + 18) * canvasScale * devicePixelRatio; context.setTransform(devicePixelRatio * canvasScale, 0, 0, devicePixelRatio * canvasScale, 0, 0); }
 function colorStyle(color) { return COLORS[color]; }
 function drawBubble(x, y, color, radius = RADIUS, alpha = 1) { context.save(); context.globalAlpha = alpha; const gradient = context.createRadialGradient(x - radius * .35, y - radius * .42, radius * .1, x, y, radius); gradient.addColorStop(0, '#ffffff'); gradient.addColorStop(.14, colorStyle(color)); gradient.addColorStop(1, colorStyle(color)); context.beginPath(); context.arc(x, y, radius, 0, Math.PI * 2); context.fillStyle = gradient; context.fill(); context.strokeStyle = 'rgba(255,255,255,.35)'; context.lineWidth = 1.5; context.stroke(); context.restore(); }
 function drawBoard() { context.clearRect(0, 0, boardWidth / canvasScale, SHOOTER_Y + 20); const logicalWidth = boardWidth / canvasScale; context.fillStyle = 'rgba(255,255,255,.025)'; context.fillRect(0, 0, logicalWidth, SHOOTER_Y); context.strokeStyle = 'rgba(255,123,115,.38)'; context.setLineDash([5, 7]); context.beginPath(); context.moveTo(0, DANGER_Y); context.lineTo(logicalWidth, DANGER_Y); context.stroke(); context.setLineDash([]); board.forEach((row, rowIndex) => row.forEach((color, colIndex) => { if (color !== null) { const position = cellPosition(rowIndex, colIndex); drawBubble(position.x, position.y, color); } })); fallingBubbles.forEach((bubble) => { const wobble = Math.sin(bubble.age * 17 + bubble.phase) * Math.min(9, 3 + bubble.age * 7); drawBubble(bubble.baseX + wobble, bubble.y, bubble.color, RADIUS, Math.max(0, 1 - Math.max(0, bubble.age - .65) * 2.8)); }); if (projectile) drawBubble(projectile.x, projectile.y, projectile.color); if (gameState === 'ready') drawAimGuide(); }
